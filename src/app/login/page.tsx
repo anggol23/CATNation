@@ -22,7 +22,12 @@ export default function Login() {
 
     const res = await loginWithEmail(email, password);
     if (res.success) {
-      router.push("/dashboard");
+      // Check res.user (from DB) OR the email entered in the form
+      if (res.user?.email === "admin@catnation.com" || email === "admin@catnation.com") {
+        router.push("/admin");
+      } else {
+        router.push("/dashboard");
+      }
     } else {
       setError(res.error || "Login gagal. Silakan periksa kredensial Anda.");
     }
@@ -34,7 +39,11 @@ export default function Login() {
     setError("");
     const res = await loginWithGoogle();
     if (res.success) {
-      router.push("/dashboard");
+      if (res.user?.email === "admin@catnation.com") {
+        router.push("/admin");
+      } else {
+        router.push("/dashboard");
+      }
     } else {
       setError(res.error || "Gagal masuk menggunakan Google.");
     }

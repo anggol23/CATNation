@@ -2,13 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, BookOpen, Trophy, User, LogOut } from "lucide-react";
+import { LayoutDashboard, BookOpen, Trophy, User, LogOut, ShieldCheck } from "lucide-react";
 import { logout } from "@/services/auth";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
 
 export function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
+  const { user } = useAuth();
 
   const links = [
     { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -16,6 +18,10 @@ export function Sidebar() {
     { name: "Leaderboard", href: "/dashboard/leaderboard", icon: Trophy },
     { name: "Profile", href: "/dashboard/profile", icon: User },
   ];
+
+  if (user?.email === "admin@catnation.com") {
+    links.unshift({ name: "Admin Panel", href: "/admin", icon: ShieldCheck });
+  }
 
   const handleLogout = async () => {
     await logout();

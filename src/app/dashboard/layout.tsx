@@ -16,8 +16,12 @@ export default function DashboardLayout({
   const pathname = usePathname();
 
   useEffect(() => {
-    if (!loading && !user) {
-      router.push("/login");
+    if (!loading) {
+      if (!user) {
+        router.push("/login");
+      } else if (user.email === "admin@catnation.com") {
+        router.push("/admin");
+      }
     }
   }, [user, loading, router]);
 

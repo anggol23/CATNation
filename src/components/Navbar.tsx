@@ -68,8 +68,12 @@ export function Navbar() {
                           <p className="text-sm font-bold text-foreground line-clamp-1">{user.name}</p>
                           <p className="text-xs text-foreground/60 line-clamp-1">{user.email}</p>
                         </div>
-                        <Link href="/dashboard" onClick={() => setDropdownOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-foreground hover:bg-surface-hover transition-colors">
-                          <LayoutDashboard className="w-4 h-4 text-primary" /> Dashboard
+                        <Link 
+                          href={user.email === "admin@catnation.com" ? "/admin" : "/dashboard"} 
+                          onClick={() => setDropdownOpen(false)} 
+                          className="flex items-center gap-2 px-4 py-2 text-sm text-foreground hover:bg-surface-hover transition-colors"
+                        >
+                          <LayoutDashboard className="w-4 h-4 text-primary" /> {user.email === "admin@catnation.com" ? "Admin Panel" : "Dashboard"}
                         </Link>
                         <button onClick={handleLogout} className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-500 hover:bg-surface-hover transition-colors">
                           <LogOut className="w-4 h-4" /> Logout
@@ -136,8 +140,12 @@ export function Navbar() {
                         <p className="text-xs text-foreground/60">{user.email}</p>
                       </div>
                     </div>
-                    <Link href="/dashboard" onClick={() => setIsOpen(false)} className="flex items-center gap-2 text-foreground/80 hover:text-primary font-medium">
-                      <LayoutDashboard className="w-5 h-5 text-primary" /> Ke Dashboard
+                    <Link 
+                      href={user.email === "admin@catnation.com" ? "/admin" : "/dashboard"} 
+                      onClick={() => setIsOpen(false)} 
+                      className="flex items-center gap-2 text-foreground/80 hover:text-primary font-medium"
+                    >
+                      <LayoutDashboard className="w-5 h-5 text-primary" /> {user.email === "admin@catnation.com" ? "Ke Admin Panel" : "Ke Dashboard"}
                     </Link>
                     <button onClick={handleLogout} className="w-full flex items-center gap-2 text-red-500 font-medium">
                       <LogOut className="w-5 h-5" /> Logout
