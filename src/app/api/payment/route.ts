@@ -35,6 +35,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ token: transaction.token, orderId });
   } catch (error: any) {
     console.error("Payment API Error:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    // Return specific error if available from Midtrans
+    const errorMessage = error.ApiResponse?.error_messages?.[0] || error.message || "Internal Server Error";
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
