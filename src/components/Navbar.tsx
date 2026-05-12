@@ -34,16 +34,16 @@ export function Navbar() {
     <nav 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled 
-          ? "bg-background/90 backdrop-blur-xl border-b border-border shadow-lg shadow-primary/5 py-1" 
-          : "bg-transparent py-3"
+          ? "bg-background/90 backdrop-blur-xl border-b border-border shadow-lg shadow-primary/5 py-0" 
+          : "bg-transparent py-1"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-14 md:h-16">
           <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="font-bold text-2xl text-primary flex items-center gap-2">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white">
-                <span className="text-xl font-bold">C</span>
+            <Link href="/" className="font-bold text-xl md:text-2xl text-primary flex items-center gap-2">
+              <div className="w-7 h-7 md:w-8 md:h-8 bg-primary rounded-lg flex items-center justify-center text-white">
+                <span className="text-lg md:text-xl font-bold">C</span>
               </div>
               CATNation
             </Link>
@@ -117,13 +117,13 @@ export function Navbar() {
           </div>
 
           {/* Mobile Menu Toggle */}
-          <div className="md:hidden flex items-center h-16">
+          <div className="md:hidden flex items-center h-14">
             <button 
               onClick={() => setIsOpen(!isOpen)}
-              className={`p-2 rounded-xl transition-all ${isOpen ? "text-primary bg-primary/10" : "text-foreground/80 hover:text-primary hover:bg-primary/5"}`}
+              className={`p-2 rounded-lg transition-all ${isOpen ? "text-primary bg-primary/10" : "text-foreground/80 hover:text-primary hover:bg-primary/5"}`}
               aria-label="Toggle menu"
             >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
@@ -141,25 +141,25 @@ export function Navbar() {
             {/* Backdrop with strong blur */}
             <div className="absolute inset-0 bg-background/98 backdrop-blur-2xl" />
             
-            <div className="relative h-full flex flex-col p-6">
+            <div className="relative h-full flex flex-col p-5">
               {/* Menu Header */}
-              <div className="flex justify-between items-center h-16 mb-12">
-                <Link href="/" onClick={() => setIsOpen(false)} className="font-bold text-2xl text-primary flex items-center gap-2">
-                  <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white">
-                    <span className="text-xl font-bold">C</span>
+              <div className="flex justify-between items-center h-14 mb-8">
+                <Link href="/" onClick={() => setIsOpen(false)} className="font-bold text-xl text-primary flex items-center gap-2">
+                  <div className="w-7 h-7 bg-primary rounded-lg flex items-center justify-center text-white">
+                    <span className="text-lg font-bold">C</span>
                   </div>
                   CATNation
                 </Link>
                 <button 
                   onClick={() => setIsOpen(false)}
-                  className="p-2 text-primary bg-primary/10 rounded-xl transition-all"
+                  className="p-2 text-primary bg-primary/10 rounded-lg transition-all"
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-5 h-5" />
                 </button>
               </div>
 
               {/* Centered Navigation Links */}
-              <div className="flex-1 flex flex-col justify-center items-center gap-8">
+              <div className="flex-1 flex flex-col justify-center items-center gap-6">
                 {[
                   { label: "Fitur Utama", href: "/#fitur" },
                   { label: "Paket Harga", href: "/#harga" },
@@ -167,14 +167,14 @@ export function Navbar() {
                 ].map((item, i) => (
                   <motion.div
                     key={item.label}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.1 }}
                   >
                     <Link 
                       href={item.href} 
                       onClick={() => setIsOpen(false)} 
-                      className="text-3xl font-black text-foreground hover:text-primary transition-all active:scale-95"
+                      className="text-2xl font-black text-foreground hover:text-primary transition-all active:scale-95 tracking-tight"
                     >
                       {item.label}
                     </Link>
@@ -184,42 +184,42 @@ export function Navbar() {
               
               {/* Bottom Actions */}
               <motion.div 
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="mt-auto space-y-6 pb-12"
+                className="mt-auto space-y-4 pb-8"
               >
                 {!loading && (
                   user ? (
-                    <div className="space-y-6 w-full max-w-sm mx-auto">
-                      <div className="glass p-6 rounded-3xl border-primary/10 flex items-center gap-4">
-                        <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary border border-primary/20">
-                          <UserIcon className="w-6 h-6" />
+                    <div className="space-y-4 w-full max-w-xs mx-auto">
+                      <div className="glass p-4 rounded-2xl border-primary/10 flex items-center gap-3">
+                        <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary border border-primary/20">
+                          <UserIcon className="w-5 h-5" />
                         </div>
                         <div className="overflow-hidden">
-                          <p className="font-black text-foreground truncate">{user.name}</p>
-                          <p className="text-xs text-foreground/60 truncate font-medium uppercase tracking-wider">{user.email}</p>
+                          <p className="font-black text-sm text-foreground truncate">{user.name}</p>
+                          <p className="text-[10px] text-foreground/50 truncate font-bold uppercase tracking-wider">{user.email}</p>
                         </div>
                       </div>
                       <Link 
                         href={user.email === "admin@catnation.com" ? "/admin" : "/dashboard"} 
                         onClick={() => setIsOpen(false)} 
-                        className="flex items-center justify-center gap-3 w-full py-5 bg-primary text-white rounded-2xl font-black text-lg shadow-xl shadow-primary/30"
+                        className="flex items-center justify-center gap-2 w-full py-4 bg-primary text-white rounded-xl font-black text-base shadow-xl shadow-primary/20"
                       >
-                        <LayoutDashboard className="w-6 h-6" /> 
+                        <LayoutDashboard className="w-5 h-5" /> 
                         {user.email === "admin@catnation.com" ? "ADMIN PANEL" : "DASHBOARD"}
                       </Link>
                       <button 
                         onClick={handleLogout} 
-                        className="w-full py-4 text-red-500 font-black text-sm uppercase tracking-[0.2em] hover:bg-red-50 rounded-2xl transition-all"
+                        className="w-full py-3 text-red-500 font-black text-[10px] uppercase tracking-[0.2em] hover:bg-red-50 rounded-xl transition-all"
                       >
                         Keluar Akun
                       </button>
                     </div>
                   ) : (
-                    <div className="flex flex-col gap-4 w-full max-w-sm mx-auto">
+                    <div className="flex flex-col gap-3 w-full max-w-xs mx-auto">
                       <Link href="/login" onClick={() => setIsOpen(false)} className="w-full">
-                        <button className="w-full py-5 text-foreground/60 hover:text-primary font-black text-lg transition-colors">
+                        <button className="w-full py-4 text-foreground/60 hover:text-primary font-black text-base transition-colors">
                           LOGIN
                         </button>
                       </Link>
@@ -227,7 +227,7 @@ export function Navbar() {
                         <motion.button 
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
-                          className="w-full bg-primary text-white py-5 rounded-2xl font-black text-lg shadow-2xl shadow-primary/40"
+                          className="w-full bg-primary text-white py-4 rounded-xl font-black text-base shadow-xl shadow-primary/30"
                         >
                           DAFTAR SEKARANG
                         </motion.button>
