@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, Users, Star, BookOpen, Shield } from "lucide-react";
+import { ArrowRight, Check, Users, Star, BookOpen, Shield } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
@@ -156,6 +156,68 @@ export default function Home() {
                 <div className="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-10 transition-opacity">
                   <feature.icon className="w-24 h-24" />
                 </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/* Pricing Section */}
+      <section id="harga" className="py-24 md:py-32 relative">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="text-center mb-16 md:mb-24">
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-3xl sm:text-5xl md:text-6xl font-black mb-6 text-foreground tracking-tight"
+            >
+              Investasi Masa Depan <span className="text-primary">Terjangkau</span>
+            </motion.h2>
+            <p className="text-foreground/70 max-w-2xl mx-auto text-lg font-medium">
+              Pilih paket yang sesuai dengan kebutuhan belajarmu dan raih impian menjadi Abdi Negara.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 items-center">
+            {[
+              { name: "Starter", price: "Gratis", desc: "Cocok untuk perkenalan sistem", features: ["3 Paket Tryout Mini", "Pembahasan Singkat", "Ranking Terbatas"], cta: "Coba Sekarang", popular: false },
+              { name: "Premium", price: "Rp 149rb", desc: "Paling populer untuk pejuang CPNS", features: ["Full 50+ Paket Tryout", "Pembahasan Video & PDF", "Analisa Kelemahan AI", "Ranking Nasional Realtime"], cta: "Beli Sekarang", popular: true },
+              { name: "Ultimate", price: "Rp 299rb", desc: "Persiapan total tanpa batas", features: ["Semua Fitur Premium", "Bimbingan Belajar Online", "Update Soal Selamanya", "Grup Eksklusif Telegram"], cta: "Pilih Ultimate", popular: false },
+            ].map((plan, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className={`glass p-10 rounded-[3rem] relative overflow-hidden flex flex-col h-full ${plan.popular ? "border-primary/40 shadow-2xl shadow-primary/20 scale-105 z-20" : "border-white/5 opacity-90 scale-95"}`}
+              >
+                {plan.popular && (
+                  <div className="absolute top-0 right-0 bg-primary text-white text-[10px] font-black px-6 py-2 rounded-bl-2xl uppercase tracking-widest">
+                    Paling Laris
+                  </div>
+                )}
+                <h3 className="text-2xl font-black mb-2 text-foreground">{plan.name}</h3>
+                <div className="flex items-baseline gap-1 mb-6">
+                  <span className="text-4xl font-black text-primary">{plan.price}</span>
+                  {plan.price !== "Gratis" && <span className="text-foreground/40 font-bold">/sekali</span>}
+                </div>
+                <p className="text-foreground/60 text-sm mb-8 font-medium">{plan.desc}</p>
+                <div className="space-y-4 mb-10 flex-1">
+                  {plan.features.map((feat, j) => (
+                    <div key={j} className="flex items-center gap-3 text-sm font-bold text-foreground/80">
+                      <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+                        <Check className="w-3 h-3" />
+                      </div>
+                      {feat}
+                    </div>
+                  ))}
+                </div>
+                <Link href="/register" className="w-full">
+                  <button className={`w-full py-5 rounded-2xl font-black text-sm uppercase tracking-widest transition-all ${plan.popular ? "bg-primary text-white shadow-xl shadow-primary/30 hover:bg-primary-dark" : "glass text-foreground hover:bg-surface-hover"}`}>
+                    {plan.cta}
+                  </button>
+                </Link>
               </motion.div>
             ))}
           </div>

@@ -53,11 +53,11 @@ export default function BlogClient({ blog }: { blog: BlogPost }) {
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-full bg-primary/5 blur-[120px] rounded-full pointer-events-none -z-10" />
 
       {/* Hero Section with Depth */}
-      <div className="w-full h-[60vh] md:h-[75vh] relative overflow-hidden">
+      <div className="w-full h-[55vh] md:h-[70vh] relative overflow-hidden">
         <motion.div 
-          initial={{ scale: 1.2, opacity: 0 }}
+          initial={{ scale: 1.15, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1.5 }}
+          transition={{ duration: 1.2 }}
           className="absolute inset-0"
         >
           <img 
@@ -114,20 +114,22 @@ export default function BlogClient({ blog }: { blog: BlogPost }) {
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12 -mt-16 md:-mt-32 relative z-30">
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="glass border-white/10 p-8 md:p-20 rounded-[3rem] md:rounded-[4rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.3)]"
-        >
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 -mt-16 md:-mt-32 relative z-30">
+        <div className="flex flex-col lg:flex-row gap-12">
+          {/* Main Content Area */}
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="flex-1 glass border-white/10 p-8 md:p-16 lg:p-20 rounded-[3rem] shadow-2xl overflow-hidden"
+          >
           <div className="mb-12 md:mb-16">
             <p className="text-xl md:text-3xl font-bold text-foreground/90 italic leading-relaxed border-l-8 border-primary pl-8 py-2">
               {blog.excerpt}
             </p>
           </div>
 
-          <div className="prose prose-lg md:prose-2xl max-w-none prose-slate dark:prose-invert prose-headings:font-black prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary-dark prose-img:rounded-[2.5rem] prose-pre:bg-surface prose-pre:border prose-pre:border-border prose-strong:text-foreground prose-p:leading-[1.8] mb-16 md:mb-24">
+          <div className="prose prose-lg md:prose-xl max-w-4xl prose-slate dark:prose-invert prose-headings:font-black prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary-dark prose-img:rounded-[2rem] prose-pre:bg-surface prose-pre:border prose-pre:border-border prose-p:leading-[1.9] mb-16 md:mb-24">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {blog.content}
             </ReactMarkdown>
@@ -195,6 +197,41 @@ export default function BlogClient({ blog }: { blog: BlogPost }) {
             </div>
           </div>
         </motion.div>
+
+          {/* Sticky Sidebar for Desktop */}
+          <aside className="hidden lg:block w-80 shrink-0">
+            <div className="sticky top-24 space-y-8">
+              <div className="glass p-8 rounded-[2.5rem] border-primary/10">
+                <h3 className="text-xl font-black mb-6 flex items-center gap-3">
+                  <span className="w-2 h-8 bg-primary rounded-full" />
+                  Insight Lainnya
+                </h3>
+                <div className="space-y-6">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} className="group cursor-pointer">
+                      <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-2">Update Seleksi</p>
+                      <h4 className="font-bold text-foreground leading-snug group-hover:text-primary transition-colors line-clamp-2">
+                        Strategi Jitu Menghadapi Ambang Batas SKD 2026
+                      </h4>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="glass p-8 rounded-[2.5rem] border-accent/10 bg-gradient-to-br from-accent/5 to-transparent">
+                <h3 className="text-xl font-black mb-4">Butuh Simulasi?</h3>
+                <p className="text-foreground/60 text-sm mb-6 leading-relaxed">
+                  Dapatkan paket tryout premium dengan sistem CAT paling akurat.
+                </p>
+                <Link href="/pricing">
+                  <button className="w-full py-4 bg-accent text-white rounded-2xl font-black text-sm shadow-xl shadow-accent/20 hover:scale-[1.02] transition-transform">
+                    LIHAT PAKET
+                  </button>
+                </Link>
+              </div>
+            </div>
+          </aside>
+        </div>
 
         <div className="mt-20 text-center">
           <Link href="/blog" className="group inline-flex items-center gap-3 text-primary font-black text-xl hover:text-primary-dark transition-colors">
