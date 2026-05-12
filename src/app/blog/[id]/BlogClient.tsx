@@ -48,13 +48,16 @@ export default function BlogClient({ blog }: { blog: BlogPost }) {
   const readingTime = calculateReadingTime(blog.content);
 
   return (
-    <div className="min-h-screen bg-background pb-20 overflow-x-hidden">
-      {/* Hero Section */}
-      <div className="w-full h-[50vh] md:h-[65vh] relative overflow-hidden">
+    <div className="min-h-screen pb-20 relative">
+      {/* Dynamic Background Aura */}
+      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-full bg-primary/5 blur-[120px] rounded-full pointer-events-none -z-10" />
+
+      {/* Hero Section with Depth */}
+      <div className="w-full h-[60vh] md:h-[75vh] relative overflow-hidden">
         <motion.div 
-          initial={{ scale: 1.1 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 10, ease: "easeOut" }}
+          initial={{ scale: 1.2, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.5 }}
           className="absolute inset-0"
         >
           <img 
@@ -64,45 +67,46 @@ export default function BlogClient({ blog }: { blog: BlogPost }) {
           />
         </motion.div>
         
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-black/40 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-black/60 z-10" />
         
-        <div className="absolute inset-0 z-20 flex items-end pb-24 md:pb-32">
-          <div className="max-w-4xl mx-auto px-4 w-full">
+        <div className="absolute inset-0 z-20 flex items-end pb-24 md:pb-40">
+          <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12 w-full">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 }}
+              transition={{ delay: 0.2 }}
             >
-              <Link href="/blog" className="inline-flex items-center gap-2 text-white/90 hover:text-white mb-6 group transition-all bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">
+              <Link href="/blog" className="inline-flex items-center gap-3 text-white/90 hover:text-white mb-8 group transition-all glass px-6 py-2.5 rounded-full border-white/20">
                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> 
-                <span className="text-sm font-medium">Kembali ke Blog</span>
+                <span className="text-sm font-bold tracking-wide">Kembali ke Blog</span>
               </Link>
             </motion.div>
             
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
+              transition={{ delay: 0.3 }}
+              className="max-w-4xl"
             >
-              <span className="px-3 py-1 rounded-full bg-primary text-white text-xs font-bold uppercase tracking-wider mb-4 inline-block shadow-lg shadow-primary/30">
-                Informasi Tryout
+              <span className="px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-black uppercase tracking-[0.2em] mb-6 inline-block shadow-2xl shadow-primary/40">
+                💎 Premium Insight
               </span>
-              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-[1.2] sm:leading-[1.1] tracking-tight drop-shadow-lg">
+              <h1 className="text-3xl sm:text-5xl md:text-7xl font-black text-white mb-8 leading-[1.1] tracking-tight drop-shadow-2xl">
                 {blog.title}
               </h1>
               
-              <div className="flex flex-wrap items-center gap-3 sm:gap-6 text-white/90 text-[10px] sm:text-sm font-medium">
-                <div className="flex items-center gap-2 bg-black/20 backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg border border-white/10">
-                  <Calendar className="w-3 sm:w-4 h-3 sm:h-4 text-primary" />
-                  {new Date(blog.createdAt).toLocaleDateString("id-ID", { day: 'numeric', month: 'long' })}
+              <div className="flex flex-wrap items-center gap-4 sm:gap-8 text-white/90 text-[10px] sm:text-xs font-black uppercase tracking-widest">
+                <div className="flex items-center gap-3 glass px-4 py-2.5 rounded-xl border-white/10">
+                  <Calendar className="w-4 h-4 text-primary" />
+                  {new Date(blog.createdAt).toLocaleDateString("id-ID", { day: 'numeric', month: 'long', year: 'numeric' })}
                 </div>
-                <div className="flex items-center gap-2 bg-black/20 backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg border border-white/10">
-                  <User className="w-3 sm:w-4 h-3 sm:h-4 text-primary" />
-                  <span className="truncate max-w-[100px]">{blog.author}</span>
+                <div className="flex items-center gap-3 glass px-4 py-2.5 rounded-xl border-white/10">
+                  <User className="w-4 h-4 text-primary" />
+                  {blog.author}
                 </div>
-                <div className="flex items-center gap-2 bg-black/20 backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg border border-white/10">
-                  <Clock className="w-3 sm:w-4 h-3 sm:h-4 text-primary" />
-                  {readingTime} menit
+                <div className="flex items-center gap-3 glass px-4 py-2.5 rounded-xl border-white/10">
+                  <Clock className="w-4 h-4 text-primary" />
+                  {readingTime} Menit Baca
                 </div>
               </div>
             </motion.div>
@@ -110,84 +114,92 @@ export default function BlogClient({ blog }: { blog: BlogPost }) {
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 -mt-16 md:-mt-24 relative z-30">
+      <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12 -mt-16 md:-mt-32 relative z-30">
         <motion.div 
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="bg-surface border border-border p-6 md:p-16 rounded-[2rem] md:rounded-[3rem] shadow-2xl"
+          transition={{ delay: 0.4 }}
+          className="glass border-white/10 p-8 md:p-20 rounded-[3rem] md:rounded-[4rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.3)]"
         >
-          <div className="mb-10 md:mb-12">
-            <p className="text-lg md:text-2xl font-medium text-foreground/90 italic leading-relaxed border-l-4 border-primary pl-4 md:pl-6">
+          <div className="mb-12 md:mb-16">
+            <p className="text-xl md:text-3xl font-bold text-foreground/90 italic leading-relaxed border-l-8 border-primary pl-8 py-2">
               {blog.excerpt}
             </p>
           </div>
 
-          <div className="prose prose-lg md:prose-xl max-w-none prose-slate dark:prose-invert prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary-dark prose-img:rounded-3xl prose-pre:bg-surface prose-pre:border prose-pre:border-border mb-12 md:mb-16">
+          <div className="prose prose-lg md:prose-2xl max-w-none prose-slate dark:prose-invert prose-headings:font-black prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary-dark prose-img:rounded-[2.5rem] prose-pre:bg-surface prose-pre:border prose-pre:border-border prose-strong:text-foreground prose-p:leading-[1.8] mb-16 md:mb-24">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {blog.content}
             </ReactMarkdown>
           </div>
 
-          {/* Call to Action Section */}
-          <div className="my-16 p-8 md:p-12 rounded-[2rem] bg-gradient-to-br from-primary to-primary-dark text-white relative overflow-hidden shadow-2xl shadow-primary/20">
-            <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-64 h-64 bg-secondary/20 rounded-full blur-3xl" />
+          {/* Premium Call to Action */}
+          <motion.div 
+            whileInView={{ scale: [0.95, 1], opacity: [0, 1] }}
+            viewport={{ once: true }}
+            className="my-20 p-10 md:p-16 rounded-[3.5rem] bg-gradient-to-br from-primary via-accent to-primary-dark text-white relative overflow-hidden shadow-[0_32px_64px_-12px_rgba(59,130,246,0.5)]"
+          >
+            <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-80 h-80 bg-white/10 rounded-full blur-[80px]" />
+            <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-80 h-80 bg-secondary/20 rounded-full blur-[80px]" />
             
-            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-              <div className="text-center md:text-left">
-                <h3 className="text-2xl md:text-3xl font-bold mb-3">Siap Menjadi Abdi Negara?</h3>
-                <p className="text-white/80 text-lg max-w-md">
+            <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
+              <div className="text-center lg:text-left max-w-xl">
+                <h3 className="text-3xl md:text-5xl font-black mb-6 leading-tight">Siap Menjadi <br/> Abdi Negara?</h3>
+                <p className="text-white/80 text-lg md:text-xl font-medium">
                   Jangan tunda lagi. Mulai asah kemampuanmu dengan ribuan soal tryout standar nasional di CATNation.
                 </p>
               </div>
-              <Link href="/register">
+              <Link href="/register" className="shrink-0">
                 <motion.button 
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(0,0,0,0.2)" }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-white text-primary px-8 py-4 rounded-xl font-bold text-lg hover:bg-surface-hover transition-all shadow-xl shadow-black/10 whitespace-nowrap flex items-center gap-2"
+                  className="bg-white text-primary px-12 py-6 rounded-2xl font-black text-xl hover:bg-surface-hover transition-all flex items-center gap-3"
                 >
-                  Daftar Sekarang <ArrowRight className="w-5 h-5" />
+                  Daftar Sekarang <ArrowRight className="w-6 h-6" />
                 </motion.button>
               </Link>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="border-t border-border pt-10">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-              <div>
-                <p className="text-sm font-bold text-foreground/40 mb-1 uppercase tracking-[0.2em]">Bagikan</p>
-                <h4 className="text-xl font-bold text-foreground">Suka dengan artikel ini?</h4>
+          <div className="border-t border-border/30 pt-12">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-10">
+              <div className="text-center md:text-left">
+                <p className="text-xs font-black text-foreground/40 mb-2 uppercase tracking-[0.3em]">Share This Insight</p>
+                <h4 className="text-2xl font-black text-foreground">Suka dengan artikel ini?</h4>
               </div>
               
-              <div className="flex flex-wrap gap-3">
-                <button 
+              <div className="flex flex-wrap justify-center gap-4">
+                <motion.button 
+                  whileHover={{ y: -5 }}
                   onClick={handleWhatsAppShare}
-                  className="flex items-center gap-2 bg-[#25D366]/10 text-[#25D366] hover:bg-[#25D366] hover:text-white px-5 py-3 rounded-2xl transition-all font-bold text-sm border border-[#25D366]/20"
+                  className="flex items-center gap-3 bg-[#25D366]/10 text-[#25D366] hover:bg-[#25D366] hover:text-white px-8 py-4 rounded-2xl transition-all font-black text-sm border border-[#25D366]/20 shadow-lg shadow-[#25D366]/5"
                 >
-                  <MessageCircle className="w-5 h-5" /> WhatsApp
-                </button>
-                <button 
+                  <MessageCircle className="w-5 h-5" /> WHATSAPP
+                </motion.button>
+                <motion.button 
+                  whileHover={{ y: -5 }}
                   onClick={handleNativeShare}
-                  className="flex items-center gap-2 bg-primary/10 text-primary hover:bg-primary hover:text-white px-5 py-3 rounded-2xl transition-all font-bold text-sm border border-primary/20 shadow-sm"
+                  className="flex items-center gap-3 bg-primary/10 text-primary hover:bg-primary hover:text-white px-8 py-4 rounded-2xl transition-all font-black text-sm border border-primary/20 shadow-lg shadow-primary/5"
                 >
-                  <Share2 className="w-5 h-5" /> Bagikan
-                </button>
-                <button 
+                  <Share2 className="w-5 h-5" /> BAGIKAN
+                </motion.button>
+                <motion.button 
+                  whileHover={{ y: -5 }}
                   onClick={handleCopyLink}
-                  className="flex items-center gap-2 bg-foreground/5 text-foreground/80 hover:bg-foreground hover:text-white px-5 py-3 rounded-2xl transition-all font-bold text-sm border border-foreground/10"
+                  className="flex items-center gap-3 bg-foreground/5 text-foreground/80 hover:bg-foreground hover:text-white px-8 py-4 rounded-2xl transition-all font-black text-sm border border-foreground/10"
                 >
                   {copied ? <Check className="w-5 h-5 text-green-500" /> : <LinkIcon className="w-5 h-5" />}
-                  {copied ? "Tersalin!" : "Salin Link"}
-                </button>
+                  {copied ? "TERSALIN!" : "SALIN LINK"}
+                </motion.button>
               </div>
             </div>
           </div>
         </motion.div>
 
-        <div className="mt-12 text-center">
-          <Link href="/blog" className="text-primary font-bold hover:underline inline-flex items-center gap-2">
-            Lihat Artikel Lainnya <ArrowRight className="w-4 h-4" />
+        <div className="mt-20 text-center">
+          <Link href="/blog" className="group inline-flex items-center gap-3 text-primary font-black text-xl hover:text-primary-dark transition-colors">
+            <span className="border-b-2 border-transparent group-hover:border-primary transition-all">Lihat Artikel Lainnya</span>
+            <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
           </Link>
         </div>
       </div>

@@ -5,103 +5,157 @@ import { ArrowRight, CheckCircle2, Users, Star, BookOpen, Shield } from "lucide-
 import Link from "next/link";
 
 export default function Home() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6 }
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-background overflow-x-hidden">
+    <div className="min-h-screen selection:bg-primary/30 selection:text-primary">
       {/* Hero Section */}
-      <section className="pt-24 md:pt-32 pb-16 md:pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col items-center text-center">
+      <section className="pt-16 md:pt-32 pb-20 md:pb-32 px-6 sm:px-8 lg:px-12 max-w-7xl mx-auto flex flex-col items-center text-center relative">
+        {/* Subtle Decorative Aura */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-full bg-primary/10 blur-[120px] rounded-full pointer-events-none -z-10" />
+
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
           className="w-full"
         >
-          <span className="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-medium mb-6 inline-block">
-            Platform Tryout CPNS & BUMN #1
-          </span>
-          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 text-foreground leading-[1.2] sm:leading-[1.1]">
-            Lulus Tes Lebih Mudah dengan <br className="hidden sm:block"/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-              Simulasi CAT Asli
+          <motion.span 
+            variants={itemVariants}
+            className="px-4 py-2 rounded-full glass text-primary text-xs sm:text-sm font-bold mb-8 inline-block shadow-lg shadow-primary/5 border-primary/20 tracking-wider uppercase"
+          >
+            🚀 Platform Tryout No. 1 di Indonesia
+          </motion.span>
+          
+          <motion.h1 
+            variants={itemVariants}
+            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight mb-8 text-foreground leading-[1.05]"
+          >
+            Lulus Tes Lebih Mudah <br className="hidden sm:block"/>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary animate-gradient-x">
+              Bersama CATNation
             </span>
-          </h1>
-          <p className="text-lg sm:text-xl text-foreground/70 max-w-2xl mx-auto mb-10 px-4 sm:px-0">
-            Rasakan pengalaman ujian sesungguhnya. Soal update, sistem anti-curang, dan analisa kelemahan akurat untuk bantu kamu raih NIP tahun ini.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full max-w-md mx-auto sm:max-w-none">
+          </motion.h1>
+
+          <motion.p 
+            variants={itemVariants}
+            className="text-lg sm:text-xl md:text-2xl text-foreground/80 max-w-3xl mx-auto mb-12 px-4 leading-relaxed font-medium"
+          >
+            Rasakan simulasi CAT 100% mirip aslinya. Dilengkapi sistem ranking nasional dan analisa mendalam untuk membantu kamu meraih NIP tahun ini.
+          </motion.p>
+
+          <motion.div 
+            variants={itemVariants}
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center w-full max-w-lg mx-auto sm:max-w-none"
+          >
             <Link href="/register" className="w-full sm:w-auto">
               <motion.button 
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(59, 130, 246, 0.4)" }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full sm:w-auto bg-primary text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-primary-dark transition-all shadow-xl shadow-primary/30 flex items-center justify-center gap-2"
+                className="w-full sm:w-auto bg-primary text-white px-10 py-5 rounded-2xl font-black text-xl hover:bg-primary-dark transition-all shadow-2xl shadow-primary/30 flex items-center justify-center gap-3 group"
               >
-                Mulai Tryout Gratis <ArrowRight className="w-5 h-5" />
+                Mulai Sekarang <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
               </motion.button>
             </Link>
-            <Link href="#harga" className="w-full sm:w-auto">
+            <Link href="#fitur" className="w-full sm:w-auto">
               <motion.button 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full sm:w-auto bg-surface text-foreground border border-border px-8 py-4 rounded-xl font-bold text-lg hover:bg-surface-hover transition-all"
+                className="w-full sm:w-auto glass text-foreground px-10 py-5 rounded-2xl font-black text-xl hover:bg-surface-hover transition-all flex items-center justify-center"
               >
-                Lihat Paket Premium
+                Lihat Fitur Utama
               </motion.button>
             </Link>
-          </div>
+          </motion.div>
         </motion.div>
 
-        {/* Stats */}
+        {/* Floating Stats Card */}
         <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-          className="mt-16 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 w-full max-w-4xl border-y border-border py-8"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.8, duration: 0.8 }}
+          className="mt-20 md:mt-32 glass p-8 md:p-12 rounded-[3rem] w-full max-w-5xl shadow-2xl relative overflow-hidden"
         >
-          <div className="flex flex-col items-center">
-            <h3 className="text-2xl sm:text-3xl font-bold text-primary mb-1">50K+</h3>
-            <p className="text-sm sm:text-base text-foreground/60">User Aktif</p>
-          </div>
-          <div className="flex flex-col items-center">
-            <h3 className="text-2xl sm:text-3xl font-bold text-primary mb-1">100+</h3>
-            <p className="text-sm sm:text-base text-foreground/60">Paket Tryout</p>
-          </div>
-          <div className="flex flex-col items-center">
-            <h3 className="text-2xl sm:text-3xl font-bold text-primary mb-1">98%</h3>
-            <p className="text-sm sm:text-base text-foreground/60">Lulus Passing Grade</p>
-          </div>
-          <div className="flex flex-col items-center">
-            <h3 className="text-2xl sm:text-3xl font-bold text-primary mb-1">4.9/5</h3>
-            <p className="text-sm sm:text-base text-foreground/60">Rating Pengguna</p>
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5" />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 relative z-10">
+            {[
+              { label: "User Aktif", value: "50K+" },
+              { label: "Paket Tryout", value: "100+" },
+              { label: "Lulus Passing Grade", value: "98%" },
+              { label: "Rating Pengguna", value: "4.9/5" },
+            ].map((stat, i) => (
+              <div key={i} className="flex flex-col items-center">
+                <h3 className="text-3xl sm:text-4xl font-black text-primary mb-2 tracking-tight">{stat.value}</h3>
+                <p className="text-xs sm:text-sm font-bold text-foreground/60 uppercase tracking-widest">{stat.label}</p>
+              </div>
+            ))}
           </div>
         </motion.div>
       </section>
 
       {/* Features Section */}
-      <section id="fitur" className="py-16 md:py-20 bg-surface">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10 md:mb-16">
-            <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-4 text-foreground px-2">Kenapa Memilih CATNation?</h2>
-            <p className="text-foreground/60 max-w-2xl mx-auto text-sm sm:text-lg px-4">Fitur lengkap yang didesain khusus untuk memaksimalkan potensi kelulusanmu.</p>
+      <section id="fitur" className="py-24 md:py-32 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="text-center mb-16 md:mb-24">
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-3xl sm:text-5xl md:text-6xl font-black mb-6 text-foreground tracking-tight"
+            >
+              Kenapa Memilih <span className="text-primary">CATNation?</span>
+            </motion.h2>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-foreground/70 max-w-2xl mx-auto text-lg sm:text-xl font-medium leading-relaxed"
+            >
+              Kami memberikan lebih dari sekadar latihan. Kami memberikan strategi kemenangan.
+            </motion.p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid md:grid-cols-3 gap-8 md:gap-10">
             {[
-              { icon: Shield, title: "Sistem CAT Asli", desc: "Tampilan, durasi, dan sistem penilaian (termasuk passing grade) 100% mirip dengan tes aslinya." },
-              { icon: BookOpen, title: "Pembahasan Lengkap", desc: "Tiap soal dilengkapi pembahasan detail dan trik cepat menjawab ala tentor." },
-              { icon: Users, title: "Ranking Nasional", desc: "Ukur kemampuanmu dibanding puluhan ribu peserta lain dari seluruh Indonesia." },
+              { icon: Shield, title: "Sistem CAT Asli", desc: "Tampilan, durasi, dan sistem penilaian 100% mirip dengan tes aslinya.", color: "bg-blue-500" },
+              { icon: BookOpen, title: "Pembahasan Detail", desc: "Tiap soal dilengkapi pembahasan mendalam dan trik cepat ala tentor senior.", color: "bg-emerald-500" },
+              { icon: Users, title: "Ranking Nasional", desc: "Ukur kemampuanmu dibanding puluhan ribu peserta lain secara realtime.", color: "bg-purple-500" },
             ].map((feature, i) => (
               <motion.div 
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-background p-6 sm:p-8 rounded-2xl border border-border shadow-sm hover:shadow-md transition-shadow"
+                transition={{ delay: i * 0.15 }}
+                whileHover={{ y: -10 }}
+                className="glass p-10 rounded-[2.5rem] relative group cursor-default shadow-xl border-white/5 hover:border-primary/30 transition-all duration-500"
               >
-                <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary mb-6">
-                  <feature.icon className="w-6 h-6" />
+                <div className={`w-14 h-14 ${feature.color}/20 rounded-2xl flex items-center justify-center text-primary mb-8 group-hover:scale-110 transition-transform duration-500`}>
+                  <feature.icon className="w-7 h-7" />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-foreground">{feature.title}</h3>
-                <p className="text-foreground/70 text-sm sm:text-base">{feature.desc}</p>
+                <h3 className="text-2xl font-black mb-4 text-foreground group-hover:text-primary transition-colors">{feature.title}</h3>
+                <p className="text-foreground/70 text-lg leading-relaxed">{feature.desc}</p>
+                <div className="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-10 transition-opacity">
+                  <feature.icon className="w-24 h-24" />
+                </div>
               </motion.div>
             ))}
           </div>

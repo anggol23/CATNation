@@ -5,6 +5,7 @@
   --color-primary: #3b82f6;
   --color-primary-dark: #2563eb;
   --color-secondary: #10b981;
+  --color-accent: #8b5cf6;
   --color-background: #ffffff;
   --color-foreground: #0f172a;
   --color-surface: #f8fafc;
@@ -15,11 +16,38 @@
 @media (prefers-color-scheme: dark) {
   @theme {
     --color-background: #020617;
-    --color-foreground: #f8fafc;
-    --color-surface: #0f172a;
-    --color-surface-hover: #1e293b;
-    --color-border: #334155;
+    --color-foreground: #f1f5f9;
+    --color-surface: rgba(15, 23, 42, 0.6);
+    --color-surface-hover: rgba(30, 41, 59, 0.8);
+    --color-border: rgba(255, 255, 255, 0.08);
   }
+}
+
+.glass {
+  backdrop-filter: blur(12px);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.mesh-blob {
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(100px, 50px); }
+  100% { transform: translate(0, 0); }
+}
+
+.animate-float {
+  animation: float 20s ease-in-out infinite;
 }
 
 :root {
