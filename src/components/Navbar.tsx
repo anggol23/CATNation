@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -11,6 +11,7 @@ import { logout } from "@/services/auth";
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { user, loading } = useAuth();
   const router = useRouter();
 
@@ -21,8 +22,22 @@ export function Navbar() {
     router.push("/login");
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
+    <nav 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled 
+          ? "bg-background/90 backdrop-blur-xl border-b border-border shadow-lg shadow-primary/5 py-1" 
+          : "bg-transparent py-3"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0 flex items-center">
@@ -102,10 +117,10 @@ export function Navbar() {
           </div>
 
           {/* Mobile Menu Toggle */}
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center h-16">
             <button 
               onClick={() => setIsOpen(!isOpen)}
-              className="text-foreground/80 hover:text-primary transition-colors p-2 z-[60]"
+              className={`p-2 rounded-xl transition-all ${isOpen ? "text-primary bg-primary/10" : "text-foreground/80 hover:text-primary hover:bg-primary/5"}`}
               aria-label="Toggle menu"
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -137,9 +152,9 @@ export function Navbar() {
                 </Link>
                 <button 
                   onClick={() => setIsOpen(false)}
-                  className="p-2 text-foreground/60 hover:text-primary transition-colors"
+                  className="p-2 text-primary bg-primary/10 rounded-xl transition-all"
                 >
-                  <X className="w-8 h-8" />
+                  <X className="w-6 h-6" />
                 </button>
               </div>
 
