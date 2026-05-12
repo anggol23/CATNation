@@ -117,88 +117,112 @@ export function Navbar() {
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-background/60 backdrop-blur-sm z-[51] md:hidden"
-            />
-            <motion.div 
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed right-0 top-0 bottom-0 w-[80%] max-w-sm bg-background border-l border-border z-[55] md:hidden shadow-2xl"
-            >
-              <div className="flex flex-col h-full pt-20 px-6 pb-8 overflow-y-auto">
-                <div className="space-y-1">
-                  {[
-                    { label: "Fitur", href: "/#fitur" },
-                    { label: "Harga", href: "/#harga" },
-                    { label: "Blog", href: "/blog" },
-                  ].map((item) => (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] md:hidden"
+          >
+            {/* Backdrop with strong blur */}
+            <div className="absolute inset-0 bg-background/98 backdrop-blur-2xl" />
+            
+            <div className="relative h-full flex flex-col p-6">
+              {/* Menu Header */}
+              <div className="flex justify-between items-center h-16 mb-12">
+                <Link href="/" onClick={() => setIsOpen(false)} className="font-bold text-2xl text-primary flex items-center gap-2">
+                  <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white">
+                    <span className="text-xl font-bold">C</span>
+                  </div>
+                  CATNation
+                </Link>
+                <button 
+                  onClick={() => setIsOpen(false)}
+                  className="p-2 text-foreground/60 hover:text-primary transition-colors"
+                >
+                  <X className="w-8 h-8" />
+                </button>
+              </div>
+
+              {/* Centered Navigation Links */}
+              <div className="flex-1 flex flex-col justify-center items-center gap-8">
+                {[
+                  { label: "Fitur Utama", href: "/#fitur" },
+                  { label: "Paket Harga", href: "/#harga" },
+                  { label: "Blog & Tips", href: "/blog" },
+                ].map((item, i) => (
+                  <motion.div
+                    key={item.label}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                  >
                     <Link 
-                      key={item.label}
                       href={item.href} 
                       onClick={() => setIsOpen(false)} 
-                      className="block py-4 text-xl font-bold text-foreground hover:text-primary transition-colors border-b border-border/50"
+                      className="text-3xl font-black text-foreground hover:text-primary transition-all active:scale-95"
                     >
                       {item.label}
                     </Link>
-                  ))}
-                </div>
-                
-                <div className="mt-auto pt-8 space-y-4">
-                  {!loading && (
-                    user ? (
-                      <div className="space-y-6">
-                        <div className="bg-surface p-4 rounded-2xl border border-border">
-                          <div className="flex items-center gap-3 mb-4">
-                            <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary border border-primary/20">
-                              <UserIcon className="w-6 h-6" />
-                            </div>
-                            <div className="overflow-hidden">
-                              <p className="font-bold text-foreground truncate">{user.name}</p>
-                              <p className="text-sm text-foreground/60 truncate">{user.email}</p>
-                            </div>
-                          </div>
-                          <Link 
-                            href={user.email === "admin@catnation.com" ? "/admin" : "/dashboard"} 
-                            onClick={() => setIsOpen(false)} 
-                            className="flex items-center justify-center gap-2 w-full py-3 bg-primary/10 text-primary rounded-xl font-bold hover:bg-primary/20 transition-colors"
-                          >
-                            <LayoutDashboard className="w-5 h-5" /> 
-                            {user.email === "admin@catnation.com" ? "Admin Panel" : "Dashboard"}
-                          </Link>
-                        </div>
-                        <button 
-                          onClick={handleLogout} 
-                          className="flex items-center justify-center gap-2 w-full py-4 text-red-500 font-bold hover:bg-red-50 rounded-xl transition-colors"
-                        >
-                          <LogOut className="w-5 h-5" /> Logout
-                        </button>
-                      </div>
-                    ) : (
-                      <div className="flex flex-col gap-4">
-                        <Link href="/login" onClick={() => setIsOpen(false)} className="w-full">
-                          <button className="w-full py-4 text-foreground/80 hover:text-primary font-bold transition-colors">
-                            Login
-                          </button>
-                        </Link>
-                        <Link href="/register" onClick={() => setIsOpen(false)} className="w-full">
-                          <button className="w-full bg-primary text-white py-4 rounded-2xl font-bold shadow-lg shadow-primary/30 active:scale-[0.98] transition-transform">
-                            Daftar Premium
-                          </button>
-                        </Link>
-                      </div>
-                    )
-                  )}
-                </div>
+                  </motion.div>
+                ))}
               </div>
-            </motion.div>
-          </>
+              
+              {/* Bottom Actions */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="mt-auto space-y-6 pb-12"
+              >
+                {!loading && (
+                  user ? (
+                    <div className="space-y-6 w-full max-w-sm mx-auto">
+                      <div className="glass p-6 rounded-3xl border-primary/10 flex items-center gap-4">
+                        <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary border border-primary/20">
+                          <UserIcon className="w-6 h-6" />
+                        </div>
+                        <div className="overflow-hidden">
+                          <p className="font-black text-foreground truncate">{user.name}</p>
+                          <p className="text-xs text-foreground/60 truncate font-medium uppercase tracking-wider">{user.email}</p>
+                        </div>
+                      </div>
+                      <Link 
+                        href={user.email === "admin@catnation.com" ? "/admin" : "/dashboard"} 
+                        onClick={() => setIsOpen(false)} 
+                        className="flex items-center justify-center gap-3 w-full py-5 bg-primary text-white rounded-2xl font-black text-lg shadow-xl shadow-primary/30"
+                      >
+                        <LayoutDashboard className="w-6 h-6" /> 
+                        {user.email === "admin@catnation.com" ? "ADMIN PANEL" : "DASHBOARD"}
+                      </Link>
+                      <button 
+                        onClick={handleLogout} 
+                        className="w-full py-4 text-red-500 font-black text-sm uppercase tracking-[0.2em] hover:bg-red-50 rounded-2xl transition-all"
+                      >
+                        Keluar Akun
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col gap-4 w-full max-w-sm mx-auto">
+                      <Link href="/login" onClick={() => setIsOpen(false)} className="w-full">
+                        <button className="w-full py-5 text-foreground/60 hover:text-primary font-black text-lg transition-colors">
+                          LOGIN
+                        </button>
+                      </Link>
+                      <Link href="/register" onClick={() => setIsOpen(false)} className="w-full">
+                        <motion.button 
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="w-full bg-primary text-white py-5 rounded-2xl font-black text-lg shadow-2xl shadow-primary/40"
+                        >
+                          DAFTAR SEKARANG
+                        </motion.button>
+                      </Link>
+                    </div>
+                  )
+                )}
+              </motion.div>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </nav>
