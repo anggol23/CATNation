@@ -132,6 +132,30 @@ export default function BlogClient({ blog }: { blog: BlogPost }) {
             })}
           </div>
 
+          {/* Call to Action Section */}
+          <div className="my-16 p-8 md:p-12 rounded-[2rem] bg-gradient-to-br from-primary to-primary-dark text-white relative overflow-hidden shadow-2xl shadow-primary/20">
+            <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-64 h-64 bg-secondary/20 rounded-full blur-3xl" />
+            
+            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+              <div className="text-center md:text-left">
+                <h3 className="text-2xl md:text-3xl font-bold mb-3">Siap Menjadi Abdi Negara?</h3>
+                <p className="text-white/80 text-lg max-w-md">
+                  Jangan tunda lagi. Mulai asah kemampuanmu dengan ribuan soal tryout standar nasional di CATNation.
+                </p>
+              </div>
+              <Link href="/register">
+                <motion.button 
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-white text-primary px-8 py-4 rounded-xl font-bold text-lg hover:bg-surface-hover transition-all shadow-xl shadow-black/10 whitespace-nowrap flex items-center gap-2"
+                >
+                  Daftar Sekarang <ArrowRight className="w-5 h-5" />
+                </motion.button>
+              </Link>
+            </div>
+          </div>
+
           <div className="border-t border-border pt-10">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
               <div>
