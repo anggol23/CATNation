@@ -101,17 +101,17 @@ export default function BlogClient({ blog }: { blog: BlogPost }) {
               </h1>
               
               <div className="flex flex-wrap items-center gap-4 sm:gap-8 text-white/90 text-[10px] sm:text-xs font-black uppercase tracking-widest">
-                <div className="flex items-center gap-3 glass px-4 py-2.5 rounded-xl border-white/10">
+                <div className="flex items-center gap-2.5 glass px-4 py-2 rounded-xl border-white/20 bg-white/10">
                   <Calendar className="w-4 h-4 text-primary" />
-                  {new Date(blog.createdAt).toLocaleDateString("id-ID", { day: 'numeric', month: 'long', year: 'numeric' })}
+                  <span className="text-white font-bold">{new Date(blog.createdAt).toLocaleDateString("id-ID", { day: 'numeric', month: 'long', year: 'numeric' })}</span>
                 </div>
-                <div className="flex items-center gap-3 glass px-4 py-2.5 rounded-xl border-white/10">
+                <div className="flex items-center gap-2.5 glass px-4 py-2 rounded-xl border-white/20 bg-white/10">
                   <User className="w-4 h-4 text-primary" />
-                  {blog.author}
+                  <span className="text-white font-bold">{blog.author}</span>
                 </div>
-                <div className="flex items-center gap-3 glass px-4 py-2.5 rounded-xl border-white/10">
+                <div className="flex items-center gap-2.5 glass px-4 py-2 rounded-xl border-white/20 bg-white/10">
                   <Clock className="w-4 h-4 text-primary" />
-                  {readingTime} Menit Baca
+                  <span className="text-white font-bold">{readingTime} Menit Baca</span>
                 </div>
               </div>
             </motion.div>
@@ -148,12 +148,12 @@ export default function BlogClient({ blog }: { blog: BlogPost }) {
             className="flex-1 glass border-white/10 p-6 md:p-12 lg:p-16 rounded-[2.5rem] shadow-2xl overflow-hidden"
           >
           <div className="mb-10 md:mb-14">
-            <p className="text-lg md:text-2xl font-bold text-foreground/90 italic leading-relaxed border-l-4 md:border-l-8 border-primary pl-6 md:pl-10 py-1">
+            <p className="text-lg md:text-2xl font-black text-foreground leading-relaxed border-l-4 md:border-l-8 border-primary pl-6 md:pl-10 py-1">
               {blog.excerpt}
             </p>
           </div>
 
-          <div className="prose prose-lg md:prose-xl max-w-4xl prose-slate dark:prose-invert prose-headings:font-black prose-headings:tracking-tight prose-headings:text-primary prose-a:text-primary hover:prose-a:text-primary-dark prose-img:rounded-[1.5rem] prose-pre:bg-surface prose-pre:border prose-pre:border-border prose-p:leading-[1.85] mb-16 md:mb-24">
+          <div className="prose prose-lg md:prose-xl max-w-4xl prose-slate dark:prose-invert prose-headings:text-foreground prose-p:text-foreground/90 prose-strong:text-foreground prose-a:text-primary hover:prose-a:text-primary-dark prose-img:rounded-[1.5rem] prose-pre:bg-surface prose-pre:border prose-pre:border-border prose-p:leading-[1.85] mb-16 md:mb-24">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {blog.content}
             </ReactMarkdown>
