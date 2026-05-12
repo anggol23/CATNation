@@ -88,10 +88,15 @@ export default function BlogClient({ blog }: { blog: BlogPost }) {
               transition={{ delay: 0.3 }}
               className="max-w-4xl"
             >
-              <span className="px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-black uppercase tracking-[0.2em] mb-6 inline-block shadow-2xl shadow-primary/40">
-                💎 Premium Insight
-              </span>
-              <h1 className="text-3xl sm:text-5xl md:text-7xl font-black text-white mb-8 leading-[1.1] tracking-tight drop-shadow-2xl">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-[10px] font-black uppercase tracking-widest border border-primary/20">
+                  Wawasan CPNS
+                </span>
+                <span className="px-3 py-1 rounded-full bg-white/10 text-white/80 text-[10px] font-black uppercase tracking-widest border border-white/10">
+                  Premium Content
+                </span>
+              </div>
+              <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white mb-8 leading-[1.15] tracking-tight drop-shadow-2xl">
                 {blog.title}
               </h1>
               
@@ -115,21 +120,40 @@ export default function BlogClient({ blog }: { blog: BlogPost }) {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 -mt-16 md:-mt-32 relative z-30">
-        <div className="flex flex-col lg:flex-row gap-12">
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
+          {/* Floating Share Bar (Desktop) */}
+          <aside className="hidden xl:block w-16 shrink-0">
+            <div className="sticky top-32 space-y-4">
+              {[
+                { icon: MessageCircle, color: "text-[#25D366]", bg: "bg-[#25D366]/10", action: handleWhatsAppShare },
+                { icon: Share2, color: "text-primary", bg: "bg-primary/10", action: handleNativeShare },
+                { icon: LinkIcon, color: "text-foreground/60", bg: "bg-foreground/5", action: handleCopyLink },
+              ].map((item, i) => (
+                <button 
+                  key={i}
+                  onClick={item.action}
+                  className={`w-12 h-12 rounded-2xl ${item.bg} ${item.color} flex items-center justify-center hover:scale-110 transition-all border border-transparent hover:border-current/20`}
+                >
+                  <item.icon className="w-5 h-5" />
+                </button>
+              ))}
+            </div>
+          </aside>
+
           {/* Main Content Area */}
           <motion.div 
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="flex-1 glass border-white/10 p-8 md:p-16 lg:p-20 rounded-[3rem] shadow-2xl overflow-hidden"
+            className="flex-1 glass border-white/10 p-6 md:p-12 lg:p-16 rounded-[2.5rem] shadow-2xl overflow-hidden"
           >
-          <div className="mb-12 md:mb-16">
-            <p className="text-xl md:text-3xl font-bold text-foreground/90 italic leading-relaxed border-l-8 border-primary pl-8 py-2">
+          <div className="mb-10 md:mb-14">
+            <p className="text-lg md:text-2xl font-bold text-foreground/90 italic leading-relaxed border-l-4 md:border-l-8 border-primary pl-6 md:pl-10 py-1">
               {blog.excerpt}
             </p>
           </div>
 
-          <div className="prose prose-lg md:prose-xl max-w-4xl prose-slate dark:prose-invert prose-headings:font-black prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary-dark prose-img:rounded-[2rem] prose-pre:bg-surface prose-pre:border prose-pre:border-border prose-p:leading-[1.9] mb-16 md:mb-24">
+          <div className="prose prose-lg md:prose-xl max-w-4xl prose-slate dark:prose-invert prose-headings:font-black prose-headings:tracking-tight prose-headings:text-primary prose-a:text-primary hover:prose-a:text-primary-dark prose-img:rounded-[1.5rem] prose-pre:bg-surface prose-pre:border prose-pre:border-border prose-p:leading-[1.85] mb-16 md:mb-24">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {blog.content}
             </ReactMarkdown>
