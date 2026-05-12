@@ -147,7 +147,7 @@ export default function Register() {
             whileTap={{ scale: 0.98 }}
             type="submit"
             disabled={loading || googleLoading}
-            className="w-full bg-primary text-white py-3 rounded-lg font-bold mt-6 hover:bg-primary-dark transition-colors flex items-center justify-center gap-2"
+            className="w-full bg-primary text-white py-3 rounded-xl font-bold mt-6 hover:bg-primary-dark transition-colors flex items-center justify-center gap-2 shadow-lg shadow-primary/20"
           >
             {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Daftar Sekarang"}
             {!loading && <ArrowRight className="w-5 h-5" />}
