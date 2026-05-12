@@ -5,6 +5,8 @@ import { BlogPost } from "@/types";
 import { Calendar, User, ArrowLeft, Share2, Link as LinkIcon, MessageCircle, Check, Clock, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export default function BlogClient({ blog }: { blog: BlogPost }) {
   const [copied, setCopied] = useState(false);
@@ -85,22 +87,22 @@ export default function BlogClient({ blog }: { blog: BlogPost }) {
               <span className="px-3 py-1 rounded-full bg-primary text-white text-xs font-bold uppercase tracking-wider mb-4 inline-block shadow-lg shadow-primary/30">
                 Informasi Tryout
               </span>
-              <h1 className="text-3xl md:text-6xl font-extrabold text-white mb-6 leading-[1.1] tracking-tight drop-shadow-lg">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-[1.2] sm:leading-[1.1] tracking-tight drop-shadow-lg">
                 {blog.title}
               </h1>
               
-              <div className="flex flex-wrap items-center gap-4 md:gap-8 text-white/90 text-sm font-medium">
-                <div className="flex items-center gap-2 bg-black/20 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-white/10">
-                  <Calendar className="w-4 h-4 text-primary" />
-                  {new Date(blog.createdAt).toLocaleDateString("id-ID", { day: 'numeric', month: 'long', year: 'numeric' })}
+              <div className="flex flex-wrap items-center gap-3 sm:gap-6 text-white/90 text-[10px] sm:text-sm font-medium">
+                <div className="flex items-center gap-2 bg-black/20 backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg border border-white/10">
+                  <Calendar className="w-3 sm:w-4 h-3 sm:h-4 text-primary" />
+                  {new Date(blog.createdAt).toLocaleDateString("id-ID", { day: 'numeric', month: 'long' })}
                 </div>
-                <div className="flex items-center gap-2 bg-black/20 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-white/10">
-                  <User className="w-4 h-4 text-primary" />
-                  {blog.author}
+                <div className="flex items-center gap-2 bg-black/20 backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg border border-white/10">
+                  <User className="w-3 sm:w-4 h-3 sm:h-4 text-primary" />
+                  <span className="truncate max-w-[100px]">{blog.author}</span>
                 </div>
-                <div className="flex items-center gap-2 bg-black/20 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-white/10">
-                  <Clock className="w-4 h-4 text-primary" />
-                  {readingTime} menit baca
+                <div className="flex items-center gap-2 bg-black/20 backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg border border-white/10">
+                  <Clock className="w-3 sm:w-4 h-3 sm:h-4 text-primary" />
+                  {readingTime} menit
                 </div>
               </div>
             </motion.div>
@@ -115,21 +117,16 @@ export default function BlogClient({ blog }: { blog: BlogPost }) {
           transition={{ delay: 0.3 }}
           className="bg-surface border border-border p-6 md:p-16 rounded-[2rem] md:rounded-[3rem] shadow-2xl"
         >
-          <div className="mb-12">
-            <p className="text-xl md:text-2xl font-medium text-foreground/90 italic leading-relaxed border-l-4 border-primary pl-6">
+          <div className="mb-10 md:mb-12">
+            <p className="text-lg md:text-2xl font-medium text-foreground/90 italic leading-relaxed border-l-4 border-primary pl-4 md:pl-6">
               {blog.excerpt}
             </p>
           </div>
 
-          <div className="text-foreground/80 leading-[1.8] text-lg md:text-xl space-y-8 mb-16">
-            {blog.content.split("\n\n").map((chunk, idx) => {
-              if (!chunk.trim()) return null;
-              return (
-                <p key={idx} className="whitespace-pre-wrap">
-                  {chunk}
-                </p>
-              );
-            })}
+          <div className="prose prose-lg md:prose-xl max-w-none prose-slate dark:prose-invert prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary-dark prose-img:rounded-3xl prose-pre:bg-surface prose-pre:border prose-pre:border-border mb-12 md:mb-16">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {blog.content}
+            </ReactMarkdown>
           </div>
 
           {/* Call to Action Section */}

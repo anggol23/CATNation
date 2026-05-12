@@ -57,10 +57,10 @@ export default function BlogPage() {
             <span className="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-bold uppercase tracking-wider mb-4 inline-block">
               Update & Tips
             </span>
-            <h1 className="text-4xl md:text-6xl font-extrabold text-foreground mb-6 tracking-tight">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-foreground mb-6 tracking-tight px-2">
               Artikel & Tips <span className="text-primary">Lolos Seleksi</span>
             </h1>
-            <p className="text-foreground/60 text-lg max-w-2xl mx-auto leading-relaxed">
+            <p className="text-foreground/60 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed px-4">
               Kumpulan strategi, rahasia passing grade, dan informasi terbaru seputar seleksi CPNS dan BUMN untuk membantu perjuanganmu.
             </p>
           </motion.div>

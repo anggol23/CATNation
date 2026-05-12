@@ -18,7 +18,7 @@ export default function Home() {
           <span className="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-medium mb-6 inline-block">
             Platform Tryout CPNS & BUMN #1
           </span>
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-6 text-foreground leading-[1.1]">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 text-foreground leading-[1.2] sm:leading-[1.1]">
             Lulus Tes Lebih Mudah dengan <br className="hidden sm:block"/>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
               Simulasi CAT Asli
@@ -78,9 +78,9 @@ export default function Home() {
       {/* Features Section */}
       <section id="fitur" className="py-16 md:py-20 bg-surface">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-foreground">Kenapa Memilih CATNation?</h2>
-            <p className="text-foreground/60 max-w-2xl mx-auto text-base sm:text-lg">Fitur lengkap yang didesain khusus untuk memaksimalkan potensi kelulusanmu.</p>
+          <div className="text-center mb-10 md:mb-16">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-4 text-foreground px-2">Kenapa Memilih CATNation?</h2>
+            <p className="text-foreground/60 max-w-2xl mx-auto text-sm sm:text-lg px-4">Fitur lengkap yang didesain khusus untuk memaksimalkan potensi kelulusanmu.</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 sm:gap-8">

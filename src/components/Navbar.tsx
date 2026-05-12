@@ -105,7 +105,8 @@ export function Navbar() {
           <div className="md:hidden flex items-center">
             <button 
               onClick={() => setIsOpen(!isOpen)}
-              className="text-foreground/80 hover:text-primary transition-colors p-2"
+              className="text-foreground/80 hover:text-primary transition-colors p-2 z-[60]"
+              aria-label="Toggle menu"
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -113,59 +114,91 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-t border-border bg-background overflow-hidden"
-          >
-            <div className="px-4 py-4 space-y-4 flex flex-col">
-              <Link href="/#fitur" onClick={() => setIsOpen(false)} className="text-foreground/80 hover:text-primary font-medium">Fitur</Link>
-              <Link href="/#harga" onClick={() => setIsOpen(false)} className="text-foreground/80 hover:text-primary font-medium">Harga</Link>
-              <Link href="/blog" onClick={() => setIsOpen(false)} className="text-foreground/80 hover:text-primary font-medium">Blog</Link>
-              <hr className="border-border" />
-              
-              {!loading && (
-                user ? (
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-3 bg-surface p-3 rounded-xl border border-border">
-                      <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
-                        <UserIcon className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <p className="font-bold text-sm text-foreground">{user.name}</p>
-                        <p className="text-xs text-foreground/60">{user.email}</p>
-                      </div>
-                    </div>
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsOpen(false)}
+              className="fixed inset-0 bg-background/60 backdrop-blur-sm z-[51] md:hidden"
+            />
+            <motion.div 
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed right-0 top-0 bottom-0 w-[80%] max-w-sm bg-background border-l border-border z-[55] md:hidden shadow-2xl"
+            >
+              <div className="flex flex-col h-full pt-20 px-6 pb-8 overflow-y-auto">
+                <div className="space-y-1">
+                  {[
+                    { label: "Fitur", href: "/#fitur" },
+                    { label: "Harga", href: "/#harga" },
+                    { label: "Blog", href: "/blog" },
+                  ].map((item) => (
                     <Link 
-                      href={user.email === "admin@catnation.com" ? "/admin" : "/dashboard"} 
+                      key={item.label}
+                      href={item.href} 
                       onClick={() => setIsOpen(false)} 
-                      className="flex items-center gap-2 text-foreground/80 hover:text-primary font-medium"
+                      className="block py-4 text-xl font-bold text-foreground hover:text-primary transition-colors border-b border-border/50"
                     >
-                      <LayoutDashboard className="w-5 h-5 text-primary" /> {user.email === "admin@catnation.com" ? "Ke Admin Panel" : "Ke Dashboard"}
+                      {item.label}
                     </Link>
-                    <button onClick={handleLogout} className="w-full flex items-center gap-2 text-red-500 font-medium">
-                      <LogOut className="w-5 h-5" /> Logout
-                    </button>
-                  </div>
-                ) : (
-                  <>
-                    <Link href="/login" onClick={() => setIsOpen(false)} className="text-foreground/80 hover:text-primary font-medium">
-                      Login
-                    </Link>
-                    <Link href="/register" onClick={() => setIsOpen(false)}>
-                      <button className="w-full bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-primary-dark transition-colors">
-                        Daftar Premium
-                      </button>
-                    </Link>
-                  </>
-                )
-              )}
-            </div>
-          </motion.div>
+                  ))}
+                </div>
+                
+                <div className="mt-auto pt-8 space-y-4">
+                  {!loading && (
+                    user ? (
+                      <div className="space-y-6">
+                        <div className="bg-surface p-4 rounded-2xl border border-border">
+                          <div className="flex items-center gap-3 mb-4">
+                            <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary border border-primary/20">
+                              <UserIcon className="w-6 h-6" />
+                            </div>
+                            <div className="overflow-hidden">
+                              <p className="font-bold text-foreground truncate">{user.name}</p>
+                              <p className="text-sm text-foreground/60 truncate">{user.email}</p>
+                            </div>
+                          </div>
+                          <Link 
+                            href={user.email === "admin@catnation.com" ? "/admin" : "/dashboard"} 
+                            onClick={() => setIsOpen(false)} 
+                            className="flex items-center justify-center gap-2 w-full py-3 bg-primary/10 text-primary rounded-xl font-bold hover:bg-primary/20 transition-colors"
+                          >
+                            <LayoutDashboard className="w-5 h-5" /> 
+                            {user.email === "admin@catnation.com" ? "Admin Panel" : "Dashboard"}
+                          </Link>
+                        </div>
+                        <button 
+                          onClick={handleLogout} 
+                          className="flex items-center justify-center gap-2 w-full py-4 text-red-500 font-bold hover:bg-red-50 rounded-xl transition-colors"
+                        >
+                          <LogOut className="w-5 h-5" /> Logout
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col gap-4">
+                        <Link href="/login" onClick={() => setIsOpen(false)} className="w-full">
+                          <button className="w-full py-4 text-foreground/80 hover:text-primary font-bold transition-colors">
+                            Login
+                          </button>
+                        </Link>
+                        <Link href="/register" onClick={() => setIsOpen(false)} className="w-full">
+                          <button className="w-full bg-primary text-white py-4 rounded-2xl font-bold shadow-lg shadow-primary/30 active:scale-[0.98] transition-transform">
+                            Daftar Premium
+                          </button>
+                        </Link>
+                      </div>
+                    )
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </nav>
